@@ -1,0 +1,57 @@
+server:
+  port: 8091
+
+spring:
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:mysql://host.minikube.internal:3306/order_db
+    username: root
+    password: mysqlroot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+
+  cloud:
+    openfeign:
+      circuitbreaker:
+        enabled: true
+
+    resilience4j:
+      circuitbreaker:
+        instances:
+          product-service:
+            slidingWindowSize: 10
+            minimumNumberOfCalls: 5
+            failureRateThreshold: 50
+            waitDurationInOpenState: 10s
+            permittedNumberOfCallsInHalfOpenState: 3
+
+      retry:
+        instances:
+          product-service:
+            maxAttempts: 3
+            waitDuration: 1s
+
+      timelimiter:
+        instances:
+          product-service:
+            timeoutDuration: 2s
+
+      server:
+        error:
+          whitelabel:
+            enabled: false
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+  instance:
+    prefer-ip-address: true
