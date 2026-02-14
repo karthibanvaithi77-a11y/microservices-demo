@@ -1,0 +1,28 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: product-service
+
+  datasource:
+    url: jdbc:mysql://192.168.49.2:3306/product_db
+    username: root
+    password: mysqlroot
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+
+  eureka:
+    client:
+      service-url:
+        defaultZone: http://eureka-server:8761/eureka/
+    instance:
+      prefer-ip-address: true
+
+
+
