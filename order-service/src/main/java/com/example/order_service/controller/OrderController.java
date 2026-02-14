@@ -1,12 +1,8 @@
 package com.example.order_service.controller;
 
-import com.example.order_service.client.ProductClient;
-import com.example.order_service.dto.OrderRequest;
 import com.example.order_service.dto.ProductDTO;
-import com.example.order_service.entity.Order;
 import com.example.order_service.service.OrderService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
